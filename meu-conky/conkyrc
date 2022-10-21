@@ -1,0 +1,69 @@
+-- Conky, a system monitor https://github.com/brndnmtthws/conky
+--
+-- This configuration file is Lua code. You can write code in here, and it will
+-- execute when Conky loads. You can use it to generate your own advanced
+-- configurations.
+--
+-- Try this (remove the `--`):
+--
+--   print("Loading Conky config")
+--
+-- For more on Lua, see:
+-- https://www.lua.org/pil/contents.html
+
+conky.config = {
+    alignment = 'top_right',
+    background = false,
+    border_width = 1,
+    cpu_avg_samples = 2,
+    default_color = 'white',
+    default_outline_color = 'white',
+    default_shade_color = 'white',
+    double_buffer = true,
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    extra_newline = false,
+    font ='Fira Code:size=12',
+    gap_x = 10,
+    gap_y = 30,
+    minimum_height = 5,
+    minimum_width = 5,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+    own_window_argb_visual = true,
+    own_window_argb_value = 0,
+    show_graph_range = false,
+    show_graph_scale = false,
+    stippled_borders = 0,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'none',
+    use_xft = true,
+}
+
+conky.text = [[
+$hr
+${color pink}Info:$color ${scroll 32 $sysname $nodename}
+$hr
+${color pink}Uptime:$color $uptime
+${color pink}RAM Usage:$color $mem/$memmax - $memperc%
+${color pink}CPU Usage:$color $cpu% ${cpubar 4}
+$hr
+${color pink}${font Fira Code:size=60}${alignc}${time %H:%M:%S}${font}
+${if_running spotify}${voffset 10}${color white}Spotify (${exec ~/.conky/conky-spotify/scripts/status.sh}) $hr $color
+# --- Get Spotify Cover ---
+# --- added -n (no caching) flag to image as found it was caching it, as it was not updating the cover for me correcty. Also, size and location of the image placement is specific to my setup, so tinker with that yourself ---
+${exec ~/.conky/conky-spotify/scripts/cover.sh}${image ~/.conky/conky-spotify/current/current.jpg -p 0,280 -s 60x60 -n}
+${color pink}${offset 70}Title:$color ${exec ~/.conky/conky-spotify/scripts/title.sh}$color
+${color pink}${offset 70}Artist:$color ${exec ~/.conky/conky-spotify/scripts/artist.sh}$color
+${color pink}${offset 70}Album:$color ${exec ~/.conky/conky-spotify/scripts/album.sh}${voffset 10}${endif}
+]]
